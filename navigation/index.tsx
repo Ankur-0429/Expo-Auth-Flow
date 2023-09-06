@@ -63,7 +63,7 @@ const BottomTabNavigator = () => {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({color, focused}) => {
+          tabBarIcon: ({color}) => {
             return <Feather name="home" size={24} color={color} />;
           },
         }}
@@ -102,15 +102,11 @@ const styles = StyleSheet.create({
 });
 
 const Navigation = () => {
-  const isAuthenticated = useIsAuthenticated();
+  const checkAuth = useIsAuthenticated();
 
   return (
     <NavigationContainer>
-      {isAuthenticated.isAuthenticated() ? (
-        <RootNavigator />
-      ) : (
-        <AuthNavigator />
-      )}
+      {checkAuth.isAuthenticated() ? <RootNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
 };
