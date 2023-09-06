@@ -1,11 +1,9 @@
-import {Box, Input, InputField} from '@gluestack-ui/themed';
+import {Box, Input} from 'native-base';
 
 const LoginScreen = () => {
   return (
     <Box flex={1} justifyContent="center" alignContent="center">
-      <Input variant="underlined" size="md">
-        <InputField placeholder="Enter Text here" />
-      </Input>
+      <Input variant="rounded" size="md" placeholder="test" />
     </Box>
   );
 };

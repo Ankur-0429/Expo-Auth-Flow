@@ -1,8 +1,9 @@
 import {Feather} from '@expo/vector-icons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {NavigationContainer} from '@react-navigation/native';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {BlurView} from 'expo-blur';
+import {useTheme} from 'native-base';
 import React from 'react';
 import {
   Platform,
@@ -19,6 +20,7 @@ import {
   AuthStackParamList,
 } from './types';
 import useIsAuthenticated from './useIsAuthenticated';
+import useColorScheme from '../hooks/useColorScheme';
 import LoginScreen from '../screens/Authentication/LoginScreen/LoginScreen';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -103,9 +105,23 @@ const styles = StyleSheet.create({
 
 const Navigation = () => {
   const checkAuth = useIsAuthenticated();
+  const {colors} = useTheme();
+  const currTheme = useColorScheme();
+
+  const theme = {
+    ...DefaultTheme,
+    colors: {
+      primary: colors[currTheme].navigation.primary,
+      background: colors[currTheme].navigation.background,
+      card: colors[currTheme].navigation.card,
+      text: colors[currTheme].navigation.text,
+      border: colors[currTheme].navigation.border,
+      notification: colors[currTheme].navigation.notification,
+    },
+  };
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={theme}>
       {checkAuth.isAuthenticated() ? <RootNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
