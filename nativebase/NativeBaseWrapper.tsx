@@ -39,7 +39,7 @@ const NativeBaseWrapper = ({children}: NativeBaseWrapperProps) => {
         color: `${currTheme}.text`,
       },
     },
-    Box: {
+    Card: {
       defaultProps: {
         backgroundColor: `${currTheme}.background`,
       },
@@ -48,8 +48,9 @@ const NativeBaseWrapper = ({children}: NativeBaseWrapperProps) => {
       defaultProps: {
         bg: `${currTheme}.textField`,
         borderColor: `${currTheme}.textField`,
-        borderRadius: 10,
-        fontSize: 16,
+        borderRadius: 15,
+        fontSize: 18,
+        height: 12,
         invalidOutlineColor: `${currTheme}.error`,
         color: `${currTheme}.text`,
         varient: 'filled',
@@ -61,8 +62,8 @@ const NativeBaseWrapper = ({children}: NativeBaseWrapperProps) => {
         placeholderTextColor: '#ababab',
         bg: `${currTheme}.textField`,
         borderColor: `${currTheme}.textField`,
-        borderRadius: 10,
-        fontSize: 16,
+        borderRadius: 15,
+        fontSize: 18,
         invalidOutlineColor: `${currTheme}.error`,
         color: `${currTheme}.text`,
       },

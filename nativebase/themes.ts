@@ -11,7 +11,6 @@ export interface ThemeProps {
     notification: string;
   };
   map: any;
-  blur: 'light' | 'dark';
   background: string;
   text: string;
   textField: string;
@@ -26,17 +25,16 @@ const constants = {
 const LightTheme: ThemeProps = {
   navigation: {
     primary: '#1DA1F2',
-    background: '#F7F8FA',
+    background: '#FFFFFF',
     card: '#F6F6F6',
     text: '#000',
     border: '#888',
     notification: '#FF881E',
   },
   map: customStyleLight,
-  blur: 'light',
   background: 'rgba(247, 248, 250, 1)',
   text: '#000',
-  textField: '#F6F6F6',
+  textField: '#f7f7f7',
   error: '#FF8A8A',
 };
 
@@ -50,7 +48,6 @@ const DarkTheme: ThemeProps = {
     notification: '#FF881E',
   },
   map: customStyleDark,
-  blur: 'dark',
   background: 'rgba(13, 28, 45, 1)',
   text: '#E5E6E7',
   textField: '#1E2F47',
