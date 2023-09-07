@@ -21,7 +21,7 @@ import {
 } from './types';
 import useIsAuthenticated from './useIsAuthenticated';
 import useColorScheme from '../hooks/useColorScheme';
-import LoginScreen from '../screens/Authentication/LoginScreen/LoginScreen';
+import LoginScreen from '../screens/Authentication/LoginScreen';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
