@@ -7,6 +7,7 @@ import {
   Flex,
   Divider,
   HStack,
+  Pressable,
 } from 'native-base';
 import {useRef} from 'react';
 import {TextInput} from 'react-native';
@@ -21,7 +22,7 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <VStack space={5} px={5} pt={5} h="lg" maxW="450px">
+      <VStack space={5} px={5} pt={5} h="full" maxW="450px">
         <Spacer />
         <Text fontSize="3xl" fontWeight="bold">
           Log In
@@ -72,6 +73,15 @@ const LoginScreen = () => {
         <AuthButtons />
 
         <Spacer />
+
+        <HStack alignSelf="center" space={1}>
+          <Text>Don't have an account?</Text>
+          <Pressable onPress={() => {}}>
+            <Text color="constants.primary" fontWeight={600}>
+              Sign Up
+            </Text>
+          </Pressable>
+        </HStack>
       </VStack>
     </SafeAreaView>
   );
