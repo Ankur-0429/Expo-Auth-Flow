@@ -5203,6 +5203,11 @@ execa@^7.1.1:
     signal-exit "^3.0.7"
     strip-final-newline "^3.0.0"
 
+expo-apple-authentication@~6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/expo-apple-authentication/-/expo-apple-authentication-6.1.0.tgz#d308ed5dee750a41f772b8c5d702b816a5bddf97"
+  integrity sha512-zTjSSerzDZoqA3+zw/I6T+Ss9ue90quqRn6G32JrACUu7UB66381RsznTp25Gctly9FdzxvcTK3gfaKSPqWmXw==
+
 expo-application@~5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/expo-application/-/expo-application-5.3.0.tgz#0811f2de69a3a7f521762fd7f8a0a4563276dada"

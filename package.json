@@ -15,6 +15,7 @@
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
     "expo": "~49.0.8",
+    "expo-apple-authentication": "~6.1.0",
     "expo-blur": "^12.4.1",
     "expo-status-bar": "~1.6.0",
     "firebase": "^10.3.1",

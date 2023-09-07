@@ -1,10 +1,23 @@
-import {Button, Text, Input, Spacer, VStack} from 'native-base';
+import {
+  Button,
+  Text,
+  Input,
+  Spacer,
+  VStack,
+  Flex,
+  Divider,
+  HStack,
+} from 'native-base';
 import {useRef} from 'react';
 import {TextInput} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
+import useColorScheme from '../../../hooks/useColorScheme';
+import AuthButtons from '../AuthButtons';
+
 const LoginScreen = () => {
   const PasswordRef = useRef<TextInput>(null);
+  const currTheme = useColorScheme();
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -33,6 +46,31 @@ const LoginScreen = () => {
           color="constants.primary">
           Login
         </Button>
+
+        <HStack alignSelf="center" my={3}>
+          <Divider
+            bg={currTheme + '.text'}
+            thickness="1"
+            my="auto"
+            mx="2"
+            w="1/3"
+            bgColor="constants.greyText"
+            orientation="horizontal"
+          />
+          <Text color="constants.greyText">or</Text>
+          <Divider
+            bg={currTheme + '.text'}
+            thickness="1"
+            my="auto"
+            mx="2"
+            w="1/3"
+            bgColor="constants.greyText"
+            orientation="horizontal"
+          />
+        </HStack>
+
+        <AuthButtons />
+
         <Spacer />
       </VStack>
     </SafeAreaView>
