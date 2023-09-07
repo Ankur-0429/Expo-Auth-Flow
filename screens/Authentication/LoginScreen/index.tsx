@@ -8,6 +8,7 @@ import {
   HStack,
   Pressable,
   KeyboardAvoidingView,
+  Box,
 } from 'native-base';
 import {useRef} from 'react';
 import {Platform, TextInput} from 'react-native';
@@ -27,9 +28,12 @@ const LoginScreen = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <VStack space={5} px={5} pt={5} h="full" maxW="450px">
           <Spacer />
-          <Text fontSize="3xl" fontWeight="bold">
-            Log In
-          </Text>
+          <Box>
+            <Text fontSize="3xl" fontWeight="bold">
+              Log In
+            </Text>
+          </Box>
+
           <Input
             placeholder="Email Address"
             returnKeyType="next"
