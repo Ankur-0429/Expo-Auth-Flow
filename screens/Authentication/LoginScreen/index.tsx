@@ -10,11 +10,13 @@ import {
   Pressable,
   KeyboardAvoidingView,
   Box,
+  FormControl,
 } from 'native-base';
 import {useRef} from 'react';
 import {Platform, TextInput} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
+import useLogin from './useLogin';
 import useColorScheme from '../../../hooks/useColorScheme';
 import {AuthProp} from '../../../navigation/types';
 import AuthButtons from '../AuthButtons';
@@ -23,6 +25,7 @@ const LoginScreen = () => {
   const PasswordRef = useRef<TextInput>(null);
   const currTheme = useColorScheme();
   const navigation = useNavigation<AuthProp>();
+  const login = useLogin();
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -36,24 +39,47 @@ const LoginScreen = () => {
               Log In
             </Text>
           </Box>
+          <FormControl isInvalid={login.ifEmailErr}>
+            <Input
+              placeholder="Email Address"
+              returnKeyType="next"
+              blurOnSubmit={false}
+              onChangeText={text => {
+                login.setEmail(text);
+              }}
+              value={login.email}
+              onSubmitEditing={() => {
+                PasswordRef.current && PasswordRef.current.focus();
+              }}
+            />
+            <FormControl.ErrorMessage pl={3}>
+              {login.emailErr}
+            </FormControl.ErrorMessage>
+          </FormControl>
 
-          <Input
-            placeholder="Email Address"
-            returnKeyType="next"
-            blurOnSubmit={false}
-            onSubmitEditing={() => {
-              PasswordRef.current && PasswordRef.current.focus();
-            }}
-          />
-          <Input
-            placeholder="Password"
-            returnKeyType="done"
-            ref={PasswordRef}
-          />
+          <FormControl isInvalid={login.ifPasswordErr}>
+            <Input
+              placeholder="Password"
+              returnKeyType="done"
+              onChangeText={text => {
+                login.setPassword(text);
+              }}
+              value={login.password}
+              ref={PasswordRef}
+            />
+            <FormControl.ErrorMessage pl={3}>
+              {login.passwordErr}
+            </FormControl.ErrorMessage>
+          </FormControl>
+
           <Button
             borderRadius={15}
             h={12}
             _text={{fontSize: 18}}
+            isLoading={login.isloading}
+            onPress={() => {
+              login.authenticate_login();
+            }}
             color="constants.primary">
             Login
           </Button>
