@@ -36,7 +36,6 @@ export default function useRegister() {
       })
       .catch(error => {
         setIsLoading(false);
-        console.log(error.code);
         switch (error.code) {
           case 'auth/email-already-in-use':
             setEmailErr('Email Already in Use');
