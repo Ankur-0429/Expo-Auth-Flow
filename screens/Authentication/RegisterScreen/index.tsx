@@ -10,11 +10,13 @@ import {
   Pressable,
   KeyboardAvoidingView,
   Box,
+  FormControl,
 } from 'native-base';
 import {useRef} from 'react';
 import {Platform, TextInput} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
+import useRegister from './useRegister';
 import useColorScheme from '../../../hooks/useColorScheme';
 import {AuthProp} from '../../../navigation/types';
 import AuthButtons from '../AuthButtons';
@@ -24,6 +26,7 @@ const RegisterScreen = () => {
   const ConfirmPasswordRef = useRef<TextInput>(null);
   const currTheme = useColorScheme();
   const navigation = useNavigation<AuthProp>();
+  const register = useRegister();
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -38,34 +41,68 @@ const RegisterScreen = () => {
             </Text>
           </Box>
 
-          <Input
-            placeholder="Email Address"
-            returnKeyType="next"
-            blurOnSubmit={false}
-            onSubmitEditing={() => {
-              PasswordRef.current && PasswordRef.current.focus();
-            }}
-          />
-          <Input
-            placeholder="Password"
-            returnKeyType="next"
-            ref={PasswordRef}
-            blurOnSubmit={false}
-            onSubmitEditing={() => {
-              ConfirmPasswordRef.current && ConfirmPasswordRef.current.focus();
-            }}
-          />
-          <Input
-            placeholder="Confirm Password"
-            returnKeyType="done"
-            ref={ConfirmPasswordRef}
-          />
+          <FormControl isInvalid={register.ifEmailErr}>
+            <Input
+              placeholder="Email Address"
+              returnKeyType="next"
+              value={register.email}
+              onChangeText={text => {
+                register.setEmail(text);
+              }}
+              blurOnSubmit={false}
+              onSubmitEditing={() => {
+                PasswordRef.current && PasswordRef.current.focus();
+              }}
+            />
+            <FormControl.ErrorMessage pl={3}>
+              {register.emailErr}
+            </FormControl.ErrorMessage>
+          </FormControl>
+          <FormControl isInvalid={register.ifPasswordErr}>
+            <Input
+              placeholder="Password"
+              returnKeyType="next"
+              value={register.password}
+              onChangeText={text => {
+                register.setPassword(text);
+              }}
+              ref={PasswordRef}
+              blurOnSubmit={false}
+              onSubmitEditing={() => {
+                ConfirmPasswordRef.current &&
+                  ConfirmPasswordRef.current.focus();
+              }}
+            />
+            <FormControl.ErrorMessage pl={3}>
+              {register.passwordErr}
+            </FormControl.ErrorMessage>
+          </FormControl>
+
+          <FormControl isInvalid={register.ifConfirmPasswordErr}>
+            <Input
+              placeholder="Confirm Password"
+              returnKeyType="done"
+              value={register.confirmPassword}
+              onChangeText={text => {
+                register.setConfirmPassword(text);
+              }}
+              ref={ConfirmPasswordRef}
+            />
+            <FormControl.ErrorMessage pl={3}>
+              {register.confirmPasswordErr}
+            </FormControl.ErrorMessage>
+          </FormControl>
+
           <Button
             borderRadius={15}
             h={12}
             _text={{fontSize: 18}}
+            isLoading={register.isloading}
+            onPress={() => {
+              register.authenticate_register();
+            }}
             color="constants.primary">
-            Login
+            Register
           </Button>
 
           <HStack alignSelf="center" my={3}>
