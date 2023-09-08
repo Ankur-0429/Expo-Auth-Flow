@@ -19,8 +19,9 @@ import useColorScheme from '../../../hooks/useColorScheme';
 import {AuthProp} from '../../../navigation/types';
 import AuthButtons from '../AuthButtons';
 
-const LoginScreen = () => {
+const RegisterScreen = () => {
   const PasswordRef = useRef<TextInput>(null);
+  const ConfirmPasswordRef = useRef<TextInput>(null);
   const currTheme = useColorScheme();
   const navigation = useNavigation<AuthProp>();
 
@@ -33,7 +34,7 @@ const LoginScreen = () => {
           <Spacer />
           <Box>
             <Text fontSize="3xl" fontWeight="bold">
-              Log In
+              Sign Up
             </Text>
           </Box>
 
@@ -47,8 +48,17 @@ const LoginScreen = () => {
           />
           <Input
             placeholder="Password"
-            returnKeyType="done"
+            returnKeyType="next"
             ref={PasswordRef}
+            blurOnSubmit={false}
+            onSubmitEditing={() => {
+              ConfirmPasswordRef.current && ConfirmPasswordRef.current.focus();
+            }}
+          />
+          <Input
+            placeholder="Confirm Password"
+            returnKeyType="done"
+            ref={ConfirmPasswordRef}
           />
           <Button
             borderRadius={15}
@@ -85,13 +95,13 @@ const LoginScreen = () => {
           <Spacer />
 
           <HStack alignSelf="center" space={1}>
-            <Text>Don't have an account?</Text>
+            <Text>Already have an account?</Text>
             <Pressable
               onPress={() => {
-                navigation.navigate('Register');
+                navigation.navigate('Login');
               }}>
               <Text color="constants.primary" fontWeight={600}>
-                Sign Up
+                Log In
               </Text>
             </Pressable>
           </HStack>
@@ -101,4 +111,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;

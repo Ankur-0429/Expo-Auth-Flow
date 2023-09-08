@@ -22,6 +22,7 @@ import {
 import useIsAuthenticated from './useIsAuthenticated';
 import useColorScheme from '../hooks/useColorScheme';
 import LoginScreen from '../screens/Authentication/LoginScreen';
+import RegisterScreen from '../screens/Authentication/RegisterScreen';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
@@ -91,6 +92,7 @@ const AuthNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Register" component={RegisterScreen} />
     </Stack.Navigator>
   );
 };
