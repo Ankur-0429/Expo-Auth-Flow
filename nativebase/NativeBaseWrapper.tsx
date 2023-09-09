@@ -3,6 +3,7 @@ import React from 'react';
 import {useColorScheme} from 'react-native';
 
 import {Themes} from './themes';
+import {useCurrentTheme} from '../hooks/useCurrentTheme';
 
 interface NativeBaseWrapperProps {
   children: React.ReactNode;
@@ -19,7 +20,7 @@ declare module 'native-base' {
 }
 
 const NativeBaseWrapper = ({children}: NativeBaseWrapperProps) => {
-  const currTheme = useColorScheme();
+  const currTheme = useCurrentTheme();
 
   console.log(currTheme);
 

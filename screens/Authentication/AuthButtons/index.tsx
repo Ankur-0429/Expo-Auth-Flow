@@ -4,6 +4,7 @@ import {StyleSheet} from 'react-native';
 
 import Google from '../../../assets/SignIn/Google';
 import useColorScheme from '../../../hooks/useColorScheme';
+import {useCurrentTheme} from '../../../hooks/useCurrentTheme';
 
 const styles = StyleSheet.create({
   google: {
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
 });
 
 const AuthButtons = () => {
-  const currTheme = useColorScheme();
+  const currTheme = useCurrentTheme();
   return (
     <Stack space={4}>
       <Pressable

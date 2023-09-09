@@ -21,6 +21,7 @@ import {
 } from './types';
 import useIsAuthenticated from './useIsAuthenticated';
 import useColorScheme from '../hooks/useColorScheme';
+import {useCurrentTheme} from '../hooks/useCurrentTheme';
 import LoginScreen from '../screens/Authentication/LoginScreen';
 import RegisterScreen from '../screens/Authentication/RegisterScreen';
 import VerifyEmailScreen from '../screens/Authentication/VerifyEmailScreen';
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
 const Navigation = () => {
   const checkAuth = useIsAuthenticated();
   const {colors} = useTheme();
-  const currTheme = useColorScheme();
+  const currTheme = useCurrentTheme();
 
   const theme = {
     ...DefaultTheme,
