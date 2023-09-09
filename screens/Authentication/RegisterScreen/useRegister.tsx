@@ -1,7 +1,9 @@
+import {useNavigation} from '@react-navigation/native';
 import {createUserWithEmailAndPassword} from 'firebase/auth';
 import {useEffect, useState} from 'react';
 
 import {auth} from '../../../constants/firebaseConfig';
+import {AuthProp} from '../../../navigation/types';
 
 export default function useRegister() {
   const [passwordErr, setPasswordErr] = useState('');
@@ -11,6 +13,7 @@ export default function useRegister() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigation = useNavigation<AuthProp>();
 
   useEffect(() => {
     setEmailErr('');
@@ -32,6 +35,9 @@ export default function useRegister() {
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         setIsLoading(false);
+        if (auth.currentUser && !auth.currentUser.emailVerified) {
+          navigation.navigate('Verify');
+        }
         return Promise.resolve(1);
       })
       .catch(error => {

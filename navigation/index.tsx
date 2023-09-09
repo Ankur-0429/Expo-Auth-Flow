@@ -23,6 +23,7 @@ import useIsAuthenticated from './useIsAuthenticated';
 import useColorScheme from '../hooks/useColorScheme';
 import LoginScreen from '../screens/Authentication/LoginScreen';
 import RegisterScreen from '../screens/Authentication/RegisterScreen';
+import VerifyEmailScreen from '../screens/Authentication/VerifyEmailScreen';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
@@ -93,6 +94,7 @@ const AuthNavigator = () => {
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
+      <Stack.Screen name="Verify" component={VerifyEmailScreen} />
     </Stack.Navigator>
   );
 };
