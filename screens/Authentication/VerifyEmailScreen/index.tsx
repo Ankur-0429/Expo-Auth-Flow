@@ -5,10 +5,9 @@ import {
   VStack,
   HStack,
   Pressable,
-  KeyboardAvoidingView,
   Box,
 } from 'native-base';
-import {Platform} from 'react-native';
+import {openInbox} from 'react-native-email-link';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import useVerify from './useVerify';
@@ -39,9 +38,12 @@ const VerifyEmailScreen = () => {
         <Button
           borderRadius={15}
           h={12}
+          onPress={() => {
+            openInbox();
+          }}
           _text={{fontSize: 18}}
           color="constants.primary">
-          Verify
+          Open Mail App
         </Button>
 
         <HStack alignSelf="center" space={1}>

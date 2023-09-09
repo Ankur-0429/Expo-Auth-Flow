@@ -44,6 +44,7 @@ const RegisterScreen = () => {
           <FormControl isInvalid={register.ifEmailErr}>
             <Input
               placeholder="Email Address"
+              keyboardType="email-address"
               returnKeyType="next"
               value={register.email}
               onChangeText={text => {
@@ -62,6 +63,7 @@ const RegisterScreen = () => {
             <Input
               placeholder="Password"
               returnKeyType="next"
+              type="password"
               value={register.password}
               onChangeText={text => {
                 register.setPassword(text);
@@ -82,6 +84,7 @@ const RegisterScreen = () => {
             <Input
               placeholder="Confirm Password"
               returnKeyType="done"
+              type="password"
               value={register.confirmPassword}
               onChangeText={text => {
                 register.setConfirmPassword(text);

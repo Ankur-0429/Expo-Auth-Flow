@@ -1,8 +1,4 @@
-import {
-  CommonActions,
-  useIsFocused,
-  useNavigation,
-} from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {sendEmailVerification} from 'firebase/auth';
 import {useEffect} from 'react';
 
@@ -13,15 +9,37 @@ export default function useVerify() {
   const isFocused = useIsFocused();
   const navigation = useNavigation<AuthProp>();
 
-  //   useEffect(() => {
-  //     if (isFocused) {
-  //       if (!auth.currentUser) {
-  //         go_back_to_login();
-  //       } else {
-  //         send_email_verification();
-  //       }
-  //     }
-  //   }, [isFocused]);
+  useEffect(() => {
+    if (isFocused) {
+      if (!auth.currentUser) {
+        go_back_to_login();
+      } else {
+        send_email_verification();
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const unsubscribeSetInterval = setInterval(() => {
+      if (auth.currentUser) {
+        auth.currentUser.reload().then(() => {
+          if (auth.currentUser) {
+            auth.currentUser.getIdToken(true);
+          }
+        });
+      }
+    }, 3000);
+
+    return () => {
+      clearInterval(unsubscribeSetInterval);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isFocused) {
+      auth.currentUser?.reload();
+    }
+  }, [isFocused]);
 
   const go_back_to_login = () => {
     navigation.reset({

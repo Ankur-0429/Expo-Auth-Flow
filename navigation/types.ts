@@ -17,6 +17,7 @@ export type RootStackParamList = {
 export type AuthStackParamList = {
   Login: undefined;
   Register: undefined;
+  Verify: undefined;
 };
 
 export type AuthProp = NativeStackNavigationProp<AuthStackParamList>;

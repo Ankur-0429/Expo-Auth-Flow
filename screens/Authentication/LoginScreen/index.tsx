@@ -42,6 +42,7 @@ const LoginScreen = () => {
           <FormControl isInvalid={login.ifEmailErr}>
             <Input
               placeholder="Email Address"
+              keyboardType="email-address"
               returnKeyType="next"
               blurOnSubmit={false}
               onChangeText={text => {
@@ -61,6 +62,7 @@ const LoginScreen = () => {
             <Input
               placeholder="Password"
               returnKeyType="done"
+              type="password"
               onChangeText={text => {
                 login.setPassword(text);
               }}

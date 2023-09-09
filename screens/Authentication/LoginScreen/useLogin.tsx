@@ -26,6 +26,7 @@ export default function useLogin() {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         setIsLoading(false);
+        console.log(auth.currentUser);
         if (auth.currentUser && !auth.currentUser.emailVerified) {
           navigation.navigate('Verify');
         }
