@@ -20,7 +20,6 @@ import {
   AuthStackParamList,
 } from './types';
 import useIsAuthenticated from './useIsAuthenticated';
-import useColorScheme from '../hooks/useColorScheme';
 import {useCurrentTheme} from '../hooks/useCurrentTheme';
 import LoginScreen from '../screens/Authentication/LoginScreen';
 import RegisterScreen from '../screens/Authentication/RegisterScreen';

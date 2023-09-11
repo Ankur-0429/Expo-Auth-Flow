@@ -1,6 +1,5 @@
 import {extendTheme, NativeBaseProvider} from 'native-base';
 import React from 'react';
-import {useColorScheme} from 'react-native';
 
 import {Themes} from './themes';
 import {useCurrentTheme} from '../hooks/useCurrentTheme';

@@ -3,7 +3,6 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 
 import Google from '../../../assets/SignIn/Google';
-import useColorScheme from '../../../hooks/useColorScheme';
 import {useCurrentTheme} from '../../../hooks/useCurrentTheme';
 
 const styles = StyleSheet.create({
