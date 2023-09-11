@@ -1,19 +1,26 @@
 import {onAuthStateChanged, onIdTokenChanged} from 'firebase/auth';
+import {doc, getDoc} from 'firebase/firestore';
 import {useEffect, useState} from 'react';
 
-import {auth} from '../constants/firebaseConfig';
+import {auth, firestore} from '../constants/firebaseConfig';
 
 export default function useIsAuthenticated() {
   const [ifAuth, setIfAuth] = useState(false);
+  const [hasProfileData, setHasProfileData] = useState(false);
 
   useEffect(() => {
-    console.log(auth);
-    setIfAuth(auth.currentUser !== null && auth.currentUser.emailVerified);
-  }, [auth]);
-
-  useEffect(() => {
-    const unsubscribe = onIdTokenChanged(auth, user => {
+    const unsubscribeAuthState = onAuthStateChanged(auth, user => {
       if (user) {
+        setIfAuth(user.emailVerified);
+        checkIfProfileDataExists(user.uid);
+      } else {
+        setIfAuth(false);
+      }
+    });
+
+    const unsubscribeIdToken = onIdTokenChanged(auth, user => {
+      if (user) {
+        checkIfProfileDataExists(user.uid);
         setIfAuth(user.emailVerified);
       } else {
         setIfAuth(false);
@@ -21,26 +28,29 @@ export default function useIsAuthenticated() {
     });
 
     return () => {
-      unsubscribe();
+      unsubscribeAuthState();
+      unsubscribeIdToken();
     };
   }, []);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, user => {
-      console.log(user);
-      if (user) {
-        setIfAuth(user.emailVerified);
+  const checkIfProfileDataExists = async (userId: string) => {
+    try {
+      const userDocRef = doc(firestore, 'users', userId);
+      const userData = await getDoc(userDocRef);
+
+      if (userData.exists()) {
+        setHasProfileData(true);
       } else {
-        setIfAuth(false);
+        setHasProfileData(false);
       }
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+    } catch {
+      setHasProfileData(false);
+    }
+  };
 
   return {
     isAuthenticated: ifAuth,
+    profileDataExists: hasProfileData,
+    checkIfProfileDataExists,
   };
 }

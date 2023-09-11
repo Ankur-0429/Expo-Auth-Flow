@@ -126,7 +126,11 @@ const Navigation = () => {
 
   return (
     <NavigationContainer theme={theme}>
-      {checkAuth.isAuthenticated ? <RootNavigator /> : <AuthNavigator />}
+      {checkAuth.isAuthenticated && checkAuth.profileDataExists ? (
+        <RootNavigator />
+      ) : (
+        <AuthNavigator />
+      )}
     </NavigationContainer>
   );
 };
