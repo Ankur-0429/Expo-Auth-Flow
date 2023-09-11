@@ -1,3 +1,4 @@
+import * as IntentLauncher from 'expo-intent-launcher';
 import {
   Button,
   Text,
@@ -7,10 +8,29 @@ import {
   Pressable,
   Box,
 } from 'native-base';
+import {Platform} from 'react-native';
 import {openInbox} from 'react-native-email-link';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import useVerify from './useVerify';
+
+const handleOpenEmailboxAsync = async () => {
+  if (Platform.OS === 'ios') {
+    try {
+      await openInbox();
+    } catch (error) {
+      console.error(`OpenEmailbox > iOS Error > ${error}`);
+    }
+  }
+
+  if (Platform.OS === 'android') {
+    const activityAction = 'android.intent.action.MAIN';
+    const intentParams: IntentLauncher.IntentLauncherParams = {
+      category: 'android.intent.category.APP_EMAIL',
+    };
+    IntentLauncher.startActivityAsync(activityAction, intentParams);
+  }
+};
 
 const VerifyEmailScreen = () => {
   const verify = useVerify();
@@ -39,7 +59,7 @@ const VerifyEmailScreen = () => {
           borderRadius={15}
           h={12}
           onPress={() => {
-            openInbox();
+            handleOpenEmailboxAsync();
           }}
           _text={{fontSize: 18}}
           color="constants.primary">
