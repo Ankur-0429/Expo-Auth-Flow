@@ -9,6 +9,7 @@ export default function useName() {
   const [firstNameErr, setFirstNameErr] = useState('');
   const [lastNameErr, setLastNameErr] = useState('');
   const navigation = useNavigation<AuthProp>();
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     setFirstNameErr('');
@@ -46,6 +47,12 @@ export default function useName() {
     if (!namePattern.test(lastName)) {
       setLastNameErr('Last Name should only contain letters');
     }
+
+    navigation.navigate('AddProfileImage', {
+      firstName,
+      lastName,
+      dateOfBirth: date,
+    });
   };
 
   return {
@@ -59,5 +66,7 @@ export default function useName() {
     setLastName,
     handle_add_name,
     go_back_to_login,
+    dateOfBirth: date,
+    setDateOfBirth: setDate,
   };
 }

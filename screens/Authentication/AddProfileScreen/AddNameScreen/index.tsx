@@ -12,7 +12,7 @@ import {
   FormControl,
   Divider,
 } from 'native-base';
-import {useRef, useState} from 'react';
+import {useRef} from 'react';
 import {Platform, TextInput} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
@@ -24,8 +24,6 @@ const AddNameScreen = () => {
   const ConfirmPasswordRef = useRef<TextInput>(null);
   const name = useName();
   const currTheme = useCurrentTheme();
-
-  const [date, setDate] = useState(new Date());
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -91,10 +89,10 @@ const AddNameScreen = () => {
               <DateTimePicker
                 mode="date"
                 display="default"
-                value={date}
+                value={name.dateOfBirth}
                 onChange={(_, d) => {
                   if (d) {
-                    setDate(d);
+                    name.setDateOfBirth(d);
                   }
                 }}
               />

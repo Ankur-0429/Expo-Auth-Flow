@@ -1,3 +1,4 @@
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {
   Button,
   Text,
@@ -12,8 +13,11 @@ import {Platform} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import useProfile from './useProfile';
+import {AuthStackParamList} from '../../../../navigation/types';
 
-const AddProfileImageScreen = () => {
+const AddProfileImageScreen = ({
+  route,
+}: NativeStackScreenProps<AuthStackParamList, 'AddProfileImage'>) => {
   const profile = useProfile();
 
   return (
@@ -25,7 +29,7 @@ const AddProfileImageScreen = () => {
           <Spacer />
           <Box>
             <Text fontSize="3xl" fontWeight="bold">
-              Add Profile Image
+              Pick a profile picture
             </Text>
           </Box>
 
@@ -39,6 +43,10 @@ const AddProfileImageScreen = () => {
           </Button>
 
           <Spacer />
+
+          <Pressable>
+            <Text color="constants.primary">Skip for now</Text>
+          </Pressable>
 
           <HStack alignSelf="center" space={1}>
             <Text>Already have an account?</Text>
