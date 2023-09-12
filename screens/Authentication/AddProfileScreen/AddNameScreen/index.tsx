@@ -1,5 +1,4 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {useNavigation} from '@react-navigation/native';
 import {
   Button,
   Text,
@@ -19,12 +18,10 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 import useName from './useName';
 import {useCurrentTheme} from '../../../../hooks/useCurrentTheme';
-import {AuthProp} from '../../../../navigation/types';
 
 const AddNameScreen = () => {
   const LastNameRef = useRef<TextInput>(null);
   const ConfirmPasswordRef = useRef<TextInput>(null);
-  const navigation = useNavigation<AuthProp>();
   const name = useName();
   const currTheme = useCurrentTheme();
 

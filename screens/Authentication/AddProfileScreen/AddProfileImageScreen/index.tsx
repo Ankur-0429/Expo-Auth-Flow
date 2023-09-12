@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/native';
 import {
   Button,
   Text,
@@ -13,10 +12,8 @@ import {Platform} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import useProfile from './useProfile';
-import {AuthProp} from '../../../../navigation/types';
 
 const AddProfileImageScreen = () => {
-  const navigation = useNavigation<AuthProp>();
   const profile = useProfile();
 
   return (
