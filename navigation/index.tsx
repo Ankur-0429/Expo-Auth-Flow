@@ -21,6 +21,7 @@ import {
 } from './types';
 import useIsAuthenticated from './useIsAuthenticated';
 import {useCurrentTheme} from '../hooks/useCurrentTheme';
+import AddNameScreen from '../screens/Authentication/AddProfileScreen/AddNameScreen';
 import LoginScreen from '../screens/Authentication/LoginScreen';
 import RegisterScreen from '../screens/Authentication/RegisterScreen';
 import VerifyEmailScreen from '../screens/Authentication/VerifyEmailScreen';
@@ -95,6 +96,7 @@ const AuthNavigator = () => {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="Verify" component={VerifyEmailScreen} />
+      <Stack.Screen name="AddName" component={AddNameScreen} />
     </Stack.Navigator>
   );
 };
@@ -126,11 +128,7 @@ const Navigation = () => {
 
   return (
     <NavigationContainer theme={theme}>
-      {checkAuth.isAuthenticated && checkAuth.profileDataExists ? (
-        <RootNavigator />
-      ) : (
-        <AuthNavigator />
-      )}
+      {checkAuth.isAuthenticated ? <RootNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
 };

@@ -35,8 +35,12 @@ export default function useRegister() {
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         setIsLoading(false);
-        if (auth.currentUser && !auth.currentUser.emailVerified) {
-          navigation.navigate('Verify');
+        if (auth.currentUser) {
+          if (!auth.currentUser.emailVerified) {
+            navigation.navigate('Verify');
+          } else {
+            navigation.navigate('AddName');
+          }
         }
         return Promise.resolve(1);
       })

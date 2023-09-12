@@ -26,6 +26,9 @@ export default function useVerify() {
           if (auth.currentUser) {
             auth.currentUser.getIdToken(true);
           }
+          if (auth.currentUser?.emailVerified) {
+            navigation.navigate('AddName');
+          }
         });
       }
     }, 3000);

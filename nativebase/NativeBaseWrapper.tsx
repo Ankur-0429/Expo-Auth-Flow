@@ -21,8 +21,6 @@ declare module 'native-base' {
 const NativeBaseWrapper = ({children}: NativeBaseWrapperProps) => {
   const currTheme = useCurrentTheme();
 
-  console.log(currTheme);
-
   const components = {
     Text: {
       defaultProps: {

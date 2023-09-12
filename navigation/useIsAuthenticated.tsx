@@ -49,8 +49,6 @@ export default function useIsAuthenticated() {
   };
 
   return {
-    isAuthenticated: ifAuth,
-    profileDataExists: hasProfileData,
-    checkIfProfileDataExists,
+    isAuthenticated: ifAuth && hasProfileData,
   };
 }
