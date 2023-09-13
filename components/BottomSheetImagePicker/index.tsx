@@ -1,7 +1,8 @@
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
-import {Box, Card, Pressable, Text, useTheme} from 'native-base';
+import {Box, Pressable, Text, useTheme} from 'native-base';
 import React, {ReactNode, useCallback, useMemo, useRef} from 'react';
 
+import useImagePicker from './useImagePicker';
 import {useCurrentTheme} from '../../hooks/useCurrentTheme';
 
 interface BottomSheetImagePickerProps {
@@ -24,6 +25,8 @@ const BottomSheetImagePicker = ({
   const currTheme = useCurrentTheme();
   const theme = useTheme();
 
+  const imagePicker = useImagePicker({onImageSelected});
+
   return (
     <Box>
       <Pressable onPress={handlePresentModalPress}>{children}</Pressable>
@@ -36,7 +39,9 @@ const BottomSheetImagePicker = ({
         index={0}
         snapPoints={snapPoints}>
         <Box>
-          <Text>Awesome 🎉</Text>
+          <Pressable onPress={imagePicker.takePicture}>
+            <Text>Awesome 🎉</Text>
+          </Pressable>
         </Box>
       </BottomSheetModal>
     </Box>

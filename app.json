@@ -1,7 +1,16 @@
 {
   "expo": {
     "name": "waypointFrontend",
-    "plugins": ["react-native-email-link"],
+    "plugins": [
+      "react-native-email-link",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends.",
+          "cameraPermission": "The app accesses your camera to let you share pictures with your friends."
+        }
+      ]
+    ],
     "slug": "waypointFrontend",
     "version": "1.0.0",
     "orientation": "portrait",
