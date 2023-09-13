@@ -1,5 +1,6 @@
+import {AntDesign, Feather} from '@expo/vector-icons';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
-import {Box, Pressable, Text, useTheme} from 'native-base';
+import {Box, HStack, Pressable, Text, useTheme} from 'native-base';
 import React, {ReactNode, useCallback, useMemo, useRef} from 'react';
 
 import useImagePicker from './useImagePicker';
@@ -39,8 +40,37 @@ const BottomSheetImagePicker = ({
         index={0}
         snapPoints={snapPoints}>
         <Box>
-          <Pressable onPress={imagePicker.takePicture}>
-            <Text>Awesome 🎉</Text>
+          <Pressable onPress={imagePicker.pickImage} p={3} mx={3}>
+            <HStack space={3}>
+              <AntDesign
+                name="picture"
+                size={24}
+                color={theme.colors[currTheme].text}
+              />
+              <Text fontSize={18}>Choose from library</Text>
+            </HStack>
+          </Pressable>
+          <Pressable onPress={imagePicker.takePicture} p={3} mx={3}>
+            <HStack space={3}>
+              <AntDesign
+                name="camerao"
+                size={24}
+                color={theme.colors[currTheme].text}
+              />
+              <Text fontSize={18}>Take photo</Text>
+            </HStack>
+          </Pressable>
+          <Pressable onPress={() => onImageSelected('')} p={3} mx={3}>
+            <HStack space={3}>
+              <Feather
+                name="trash"
+                size={24}
+                color={theme.colors[currTheme].error}
+              />
+              <Text fontSize={18} color={theme.colors[currTheme].error}>
+                Remove current picture
+              </Text>
+            </HStack>
           </Pressable>
         </Box>
       </BottomSheetModal>

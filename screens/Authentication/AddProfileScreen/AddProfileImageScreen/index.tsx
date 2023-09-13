@@ -12,6 +12,7 @@ import {
   Box,
   useTheme,
   Card,
+  Image,
 } from 'native-base';
 import {useEffect} from 'react';
 import {Platform} from 'react-native';
@@ -59,11 +60,21 @@ const AddProfileImageScreen = ({
             }}>
             <HStack alignSelf="center">
               <Card rounded="full">
-                <AntDesign
-                  name="adduser"
-                  size={100}
-                  color={theme.colors[currTheme].text}
-                />
+                {profile.profileImageLocalUrl ? (
+                  <Image
+                    source={{uri: profile.profileImageLocalUrl}}
+                    width={200}
+                    height={200}
+                    rounded="full"
+                  />
+                ) : (
+                  <AntDesign
+                    name="adduser"
+                    size={180}
+                    style={{padding: 10}}
+                    color={theme.colors[currTheme].text}
+                  />
+                )}
               </Card>
             </HStack>
           </BottomSheetImagePicker>

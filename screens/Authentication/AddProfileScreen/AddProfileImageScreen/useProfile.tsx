@@ -22,6 +22,7 @@ export default function useProfile() {
     setFirstName,
     setLastName,
     setDateOfBirth,
+    profileImageLocalUrl,
     setProfileImageLocalUrl,
   };
 }
