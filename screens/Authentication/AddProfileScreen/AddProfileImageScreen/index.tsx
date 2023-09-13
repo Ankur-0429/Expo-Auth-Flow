@@ -1,3 +1,5 @@
+import {AntDesign} from '@expo/vector-icons';
+import {useIsFocused} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {
   Button,
@@ -8,17 +10,33 @@ import {
   Pressable,
   KeyboardAvoidingView,
   Box,
+  useTheme,
+  Card,
 } from 'native-base';
+import {useEffect} from 'react';
 import {Platform} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import useProfile from './useProfile';
+import BottomSheetImagePicker from '../../../../components/BottomSheetImagePicker';
+import {useCurrentTheme} from '../../../../hooks/useCurrentTheme';
 import {AuthStackParamList} from '../../../../navigation/types';
 
 const AddProfileImageScreen = ({
   route,
 }: NativeStackScreenProps<AuthStackParamList, 'AddProfileImage'>) => {
   const profile = useProfile();
+  const currTheme = useCurrentTheme();
+  const theme = useTheme();
+
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
+      profile.setDateOfBirth(route.params.dateOfBirth);
+      profile.setFirstName(route.params.firstName);
+      profile.setLastName(route.params.lastName);
+    }
+  }, [isFocused]);
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -33,6 +51,25 @@ const AddProfileImageScreen = ({
             </Text>
           </Box>
 
+          <Spacer />
+
+          <BottomSheetImagePicker
+            onImageSelected={image => {
+              profile.setProfileImageLocalUrl(image);
+            }}>
+            <HStack alignSelf="center">
+              <Card rounded="full">
+                <AntDesign
+                  name="adduser"
+                  size={100}
+                  color={theme.colors[currTheme].text}
+                />
+              </Card>
+            </HStack>
+          </BottomSheetImagePicker>
+
+          <Spacer />
+
           <Button
             borderRadius={15}
             h={12}
@@ -42,9 +79,7 @@ const AddProfileImageScreen = ({
             Next
           </Button>
 
-          <Spacer />
-
-          <Pressable>
+          <Pressable alignSelf="center">
             <Text color="constants.primary">Skip for now</Text>
           </Pressable>
 

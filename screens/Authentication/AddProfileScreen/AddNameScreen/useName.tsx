@@ -51,7 +51,7 @@ export default function useName() {
     navigation.navigate('AddProfileImage', {
       firstName,
       lastName,
-      dateOfBirth: date,
+      dateOfBirth: date.toISOString(),
     });
   };
 

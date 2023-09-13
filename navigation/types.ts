@@ -19,7 +19,7 @@ export type AuthStackParamList = {
   Register: undefined;
   Verify: undefined;
   AddName: undefined;
-  AddProfileImage: {firstName: string; lastName: string; dateOfBirth: Date};
+  AddProfileImage: {firstName: string; lastName: string; dateOfBirth: string};
 };
 
 export type AuthProp = NativeStackNavigationProp<AuthStackParamList>;

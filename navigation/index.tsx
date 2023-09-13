@@ -22,6 +22,7 @@ import {
 import useIsAuthenticated from './useIsAuthenticated';
 import {useCurrentTheme} from '../hooks/useCurrentTheme';
 import AddNameScreen from '../screens/Authentication/AddProfileScreen/AddNameScreen';
+import AddProfileImageScreen from '../screens/Authentication/AddProfileScreen/AddProfileImageScreen';
 import LoginScreen from '../screens/Authentication/LoginScreen';
 import RegisterScreen from '../screens/Authentication/RegisterScreen';
 import VerifyEmailScreen from '../screens/Authentication/VerifyEmailScreen';
@@ -97,6 +98,7 @@ const AuthNavigator = () => {
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="Verify" component={VerifyEmailScreen} />
       <Stack.Screen name="AddName" component={AddNameScreen} />
+      <Stack.Screen name="AddProfileImage" component={AddProfileImageScreen} />
     </Stack.Navigator>
   );
 };
