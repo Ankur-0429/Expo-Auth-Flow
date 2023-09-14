@@ -5,6 +5,7 @@ import {useState} from 'react';
 import {auth, firestore} from '../../../../constants/firebaseConfig';
 import getBlobFromUri from '../../../../constants/imageUpload/getBlobFromUri';
 import manageFileUpload from '../../../../constants/imageUpload/manageFileUpload';
+import userType from '../../../../constants/types/userType';
 import {AuthProp} from '../../../../navigation/types';
 
 export default function useProfile() {
@@ -42,14 +43,15 @@ export default function useProfile() {
 
     if (auth.currentUser?.uid) {
       const documentRef = doc(firestore, 'users', auth.currentUser.uid);
-      await setDoc(documentRef, {
+      const data: userType = {
         uid: auth.currentUser.uid,
         profileImageUrl: downloadedUrl,
         firstName,
         lastName,
         dateOfBirth,
         dateWhenJoinedPlatform: new Date().toISOString(),
-      }).then(() => {
+      };
+      await setDoc(documentRef, data).then(() => {
         auth.currentUser?.reload();
       });
     }

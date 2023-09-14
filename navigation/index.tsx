@@ -3,7 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {BlurView} from 'expo-blur';
-import {useTheme} from 'native-base';
+import {Avatar, Box, Card, Spinner, useTheme} from 'native-base';
 import React from 'react';
 import {
   Platform,
@@ -20,6 +20,8 @@ import {
   AuthStackParamList,
 } from './types';
 import useIsAuthenticated from './useIsAuthenticated';
+import {auth} from '../constants/firebaseConfig';
+import useCachedUserData from '../hooks/useCachedUserData';
 import {useCurrentTheme} from '../hooks/useCurrentTheme';
 import AddNameScreen from '../screens/Authentication/AddProfileScreen/AddNameScreen';
 import AddProfileImageScreen from '../screens/Authentication/AddProfileScreen/AddProfileImageScreen';
@@ -51,12 +53,30 @@ const CreateTitleScreen = () => {
 };
 
 const BottomTabNavigator = () => {
+  const {user, isLoading} = useCachedUserData({uid: auth.currentUser!.uid});
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarShowLabel: false,
         tabBarHideOnKeyboard: true,
         headerTransparent: true,
+        headerLeft: () => {
+          return (
+            <Box ml={3}>
+              {isLoading ? (
+                <Card rounded="full" size="10">
+                  <Spinner alignSelf="center" my="auto" size="sm" />
+                </Card>
+              ) : (
+                <Avatar
+                  bg="constants.primary"
+                  boxSize="10"
+                  source={{uri: user?.profileImageUrl}}
+                />
+              )}
+            </Box>
+          );
+        },
         headerBackground: () => {
           return Platform.OS === 'ios' ? (
             <BlurView intensity={50} style={StyleSheet.absoluteFill} />
