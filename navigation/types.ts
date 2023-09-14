@@ -1,3 +1,4 @@
+import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {NavigatorScreenParams} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
@@ -8,8 +9,12 @@ export type RootTabParamList = {
   Account: undefined;
 };
 
+export type DrawerTabParamList = {
+  Home: NavigatorScreenParams<RootTabParamList> | undefined;
+};
+
 export type RootStackParamList = {
-  Root: NavigatorScreenParams<RootTabParamList> | undefined;
+  Root: NavigatorScreenParams<DrawerTabParamList> | undefined;
   Camera: undefined;
   CreateTitle: undefined;
 };
@@ -23,4 +28,4 @@ export type AuthStackParamList = {
 };
 
 export type AuthProp = NativeStackNavigationProp<AuthStackParamList>;
-export type RootProp = NativeStackNavigationProp<RootStackParamList>;
+export type RootProp = DrawerNavigationProp<RootStackParamList>;

@@ -1,23 +1,22 @@
 import {Feather} from '@expo/vector-icons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {
+  DefaultTheme,
+  NavigationContainer,
+  useNavigation,
+} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {BlurView} from 'expo-blur';
-import {Avatar, Box, Card, Spinner, useTheme} from 'native-base';
+import {Avatar, Box, Card, Pressable, Spinner, useTheme} from 'native-base';
 import React from 'react';
-import {
-  Platform,
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  ScrollView,
-} from 'react-native';
+import {Platform, StyleSheet, View, Image, ScrollView} from 'react-native';
 
 import {
   RootStackParamList,
   RootTabParamList,
   AuthStackParamList,
+  RootProp,
 } from './types';
 import useIsAuthenticated from './useIsAuthenticated';
 import {auth} from '../constants/firebaseConfig';
@@ -28,8 +27,6 @@ import AddProfileImageScreen from '../screens/Authentication/AddProfileScreen/Ad
 import LoginScreen from '../screens/Authentication/LoginScreen';
 import RegisterScreen from '../screens/Authentication/RegisterScreen';
 import VerifyEmailScreen from '../screens/Authentication/VerifyEmailScreen';
-
-const Tab = createBottomTabNavigator<RootTabParamList>();
 
 export const uri =
   'https://media-exp1.licdn.com/dms/image/C5603AQEQZuyIujt9xA/profile-displayphoto-shrink_200_200/0/1640233246542?e=2147483647&v=beta&t=06q_FRXOtNMMPTnZmHt7CDL6g3C6tC_0erJ4JaWTNgo';
@@ -44,16 +41,40 @@ const HomeScreen = () => {
   );
 };
 
-const CreateTitleScreen = () => {
+const DrawerNavigator = () => {
+  const Tab = createDrawerNavigator();
+  const {colors} = useTheme();
+
   return (
-    <View style={styles.container}>
-      <Text>Hello Ro</Text>
-    </View>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        overlayColor: 'rgba(0, 0, 0, 0.8)',
+      }}>
+      <Tab.Screen
+        name="Initial"
+        component={BottomTabNavigator}
+        options={{
+          title: 'Home',
+          drawerIcon: ({color, size, focused}) => {
+            return (
+              <Feather
+                name="home"
+                size={size}
+                color={focused ? colors.constants.primary : color}
+              />
+            );
+          },
+        }}
+      />
+    </Tab.Navigator>
   );
 };
 
 const BottomTabNavigator = () => {
+  const Tab = createBottomTabNavigator<RootTabParamList>();
   const {user, isLoading} = useCachedUserData({uid: auth.currentUser!.uid});
+  const navigation = useNavigation<RootProp>();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -68,11 +89,13 @@ const BottomTabNavigator = () => {
                   <Spinner alignSelf="center" my="auto" size="sm" />
                 </Card>
               ) : (
-                <Avatar
-                  bg="constants.primary"
-                  boxSize="10"
-                  source={{uri: user?.profileImageUrl}}
-                />
+                <Pressable onPress={navigation.openDrawer}>
+                  <Avatar
+                    bg="constants.primary"
+                    boxSize="10"
+                    source={{uri: user?.profileImageUrl}}
+                  />
+                </Pressable>
               )}
             </Box>
           );
@@ -102,10 +125,7 @@ const RootNavigator = () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Root" component={BottomTabNavigator} />
-      <Stack.Group>
-        <Stack.Screen name="CreateTitle" component={CreateTitleScreen} />
-      </Stack.Group>
+      <Stack.Screen name="Root" component={DrawerNavigator} />
     </Stack.Navigator>
   );
 };
