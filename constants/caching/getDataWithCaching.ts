@@ -38,7 +38,8 @@ const getDataWithCaching = async <T>(
     return freshData;
   } catch (error) {
     console.error('Error during grabbing data:', error);
-    throw error;
+    const freshData = await fetchFreshDataCallback(uid);
+    return freshData;
   }
 };
 
