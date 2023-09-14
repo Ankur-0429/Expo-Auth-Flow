@@ -1,6 +1,10 @@
 import {useNavigation} from '@react-navigation/native';
+import {doc, setDoc} from 'firebase/firestore';
 import {useState} from 'react';
 
+import {auth, firestore} from '../../../../constants/firebaseConfig';
+import getBlobFromUri from '../../../../constants/imageUpload/getBlobFromUri';
+import manageFileUpload from '../../../../constants/imageUpload/manageFileUpload';
 import {AuthProp} from '../../../../navigation/types';
 
 export default function useProfile() {
@@ -8,6 +12,7 @@ export default function useProfile() {
   const [lastName, setLastName] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [profileImageLocalUrl, setProfileImageLocalUrl] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigation = useNavigation<AuthProp>();
   const go_back_to_login = () => {
@@ -17,6 +22,40 @@ export default function useProfile() {
     });
   };
 
+  const upload_profile_image = async (): Promise<string> => {
+    if (profileImageLocalUrl !== '') {
+      const fileBlob = await getBlobFromUri(profileImageLocalUrl);
+
+      const downloadedUrl = await manageFileUpload(
+        fileBlob,
+        'userProfile/' + auth.currentUser?.uid,
+      );
+
+      return downloadedUrl;
+    }
+    return '';
+  };
+
+  const submit_profile = async () => {
+    setIsLoading(true);
+    const downloadedUrl = await upload_profile_image();
+
+    if (auth.currentUser?.uid) {
+      const documentRef = doc(firestore, 'users', auth.currentUser.uid);
+      await setDoc(documentRef, {
+        uid: auth.currentUser.uid,
+        profileImageUrl: downloadedUrl,
+        firstName,
+        lastName,
+        dateOfBirth,
+        dateWhenJoinedPlatform: new Date().toISOString(),
+      }).then(() => {
+        auth.currentUser?.reload();
+      });
+    }
+    setIsLoading(false);
+  };
+
   return {
     go_back_to_login,
     setFirstName,
@@ -24,5 +63,7 @@ export default function useProfile() {
     setDateOfBirth,
     profileImageLocalUrl,
     setProfileImageLocalUrl,
+    submit_profile,
+    isLoading,
   };
 }

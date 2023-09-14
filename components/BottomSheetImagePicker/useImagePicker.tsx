@@ -11,7 +11,7 @@ export default function useImagePicker({onImageSelected}: useImagePickerProps) {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
+      quality: 0.2,
     });
 
     if (!result.canceled) {
@@ -23,7 +23,7 @@ export default function useImagePicker({onImageSelected}: useImagePickerProps) {
     const permisson = await ImagePicker.requestCameraPermissionsAsync();
 
     if (permisson.granted) {
-      const result = await ImagePicker.launchCameraAsync();
+      const result = await ImagePicker.launchCameraAsync({quality: 0.2});
       if (!result.canceled) {
         onImageSelected(result.assets[0].uri);
       }

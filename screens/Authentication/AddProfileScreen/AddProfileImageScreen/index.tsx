@@ -85,7 +85,8 @@ const AddProfileImageScreen = ({
             borderRadius={15}
             h={12}
             _text={{fontSize: 18}}
-            onPress={() => {}}
+            isLoading={profile.isLoading}
+            onPress={profile.submit_profile}
             color="constants.primary">
             Next
           </Button>
