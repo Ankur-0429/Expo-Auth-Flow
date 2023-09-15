@@ -13,15 +13,21 @@ Welcome to the Expo Authentication Flow project! This project provides a simple 
 
 1. Clone this repository:
 
+```bash
 git clone https://github.com/Ankur-0429/Expo-Auth-Flow.git
+```
 
 2. Navigate to the project directory:
 
+```bash
 cd expo-authentication-flow
+```
 
 3. Install dependencies:
 
+```bash
 yarn
+```
 
 ## Configuration
 
@@ -34,6 +40,7 @@ yarn
 - Create a `.env` file based on the `.env.example` template.
 - Add your environment-specific variables.
 
+```bash
 EXPO_PUBLIC_FIREBASE_API_KEY=
 EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN=
 EXPO_PUBLIC_FIREBASE_PROJECT_ID=
@@ -41,12 +48,15 @@ EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET=
 EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
 EXPO_PUBLIC_FIREBASE_APP_ID=
 EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID=
+```
 
 ## Usage
 
 1. Start the development server:
 
-npm start
+```bash
+yarn start
+```
 
 2. Open the Expo client on your mobile device or use an emulator.
 
