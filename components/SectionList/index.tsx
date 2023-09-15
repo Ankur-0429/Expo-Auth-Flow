@@ -7,9 +7,13 @@ import SectionType from './types';
 
 interface SectionListInterface {
   data: SectionType[];
+  onStateChanged: (updatedData: SectionType[]) => void;
 }
 
-export default function SectionList({data}: SectionListInterface) {
+export default function SectionList({
+  data,
+  onStateChanged,
+}: SectionListInterface) {
   return (
     <>
       {data.map(({header, items}) => (
@@ -36,6 +40,7 @@ export default function SectionList({data}: SectionListInterface) {
                     isLast && sectionListStyles.rowLast,
                   ]}>
                   <Pressable
+                    isDisabled={item.type === 'boolean'}
                     onPress={() => {
                       // handle onPress
                     }}>
@@ -55,7 +60,32 @@ export default function SectionList({data}: SectionListInterface) {
                       {item.type === 'boolean' &&
                         'value' in item &&
                         typeof item.value === 'boolean' && (
-                          <Switch value={item.value} />
+                          <Switch
+                            value={item.value}
+                            onToggle={value => {
+                              const updatedData = [...data];
+                              const sectionIndex = updatedData.findIndex(
+                                section =>
+                                  section.items.some(
+                                    sectionItem => sectionItem === item,
+                                  ),
+                              );
+
+                              const itemIndex = updatedData[
+                                sectionIndex
+                              ].items.findIndex(
+                                sectionItem => sectionItem === item,
+                              );
+
+                              const section =
+                                updatedData[sectionIndex].items[itemIndex];
+
+                              if (section.type === 'boolean') {
+                                section.value = value;
+                                onStateChanged(updatedData);
+                              }
+                            }}
+                          />
                         )}
 
                       {(item.type === 'input' || item.type === 'link') && (

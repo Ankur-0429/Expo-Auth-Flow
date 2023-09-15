@@ -1,14 +1,19 @@
 import {Box, Text, Image, Card, ScrollView} from 'native-base';
-import {SafeAreaView} from 'react-native';
 
-import sectionData from './sectionData';
+import useSectionData from './useSectionData';
 import SectionList from '../../components/SectionList';
 import sectionListStyles from '../../components/SectionList/styles';
+import SectionType from '../../components/SectionList/types';
 import {auth} from '../../constants/firebaseConfig';
 import useCachedUserData from '../../hooks/useCachedUserData';
 
 const SettingsAuthScreen = () => {
   const {user} = useCachedUserData({uid: auth.currentUser?.uid || ''});
+  const {sectionData, updateSectionData} = useSectionData();
+
+  const handleSectionDataUpdate = (data: SectionType[]) => {
+    updateSectionData(data);
+  };
   return (
     <ScrollView contentInsetAdjustmentBehavior="automatic">
       <Box style={sectionListStyles.section}>
@@ -40,7 +45,10 @@ const SettingsAuthScreen = () => {
           </Box>
         </Card>
       </Box>
-      <SectionList data={sectionData} />
+      <SectionList
+        data={sectionData}
+        onStateChanged={handleSectionDataUpdate}
+      />
     </ScrollView>
   );
 };
