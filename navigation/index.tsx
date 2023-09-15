@@ -10,7 +10,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {BlurView} from 'expo-blur';
 import {Avatar, Box, Card, Pressable, Spinner, useTheme} from 'native-base';
 import React from 'react';
-import {Platform, StyleSheet, View, Image, ScrollView} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
 
 import {
   RootStackParamList,
@@ -27,19 +27,7 @@ import AddProfileImageScreen from '../screens/Authentication/AddProfileScreen/Ad
 import LoginScreen from '../screens/Authentication/LoginScreen';
 import RegisterScreen from '../screens/Authentication/RegisterScreen';
 import VerifyEmailScreen from '../screens/Authentication/VerifyEmailScreen';
-
-export const uri =
-  'https://media-exp1.licdn.com/dms/image/C5603AQEQZuyIujt9xA/profile-displayphoto-shrink_200_200/0/1640233246542?e=2147483647&v=beta&t=06q_FRXOtNMMPTnZmHt7CDL6g3C6tC_0erJ4JaWTNgo';
-
-const HomeScreen = () => {
-  return (
-    <View style={styles.container}>
-      <ScrollView>
-        <Image source={{uri}} width={200} height={200} />
-      </ScrollView>
-    </View>
-  );
-};
+import SettingsAuthScreen from '../screens/SettingsAuthScreen';
 
 const DrawerNavigator = () => {
   const Tab = createDrawerNavigator();
@@ -60,6 +48,22 @@ const DrawerNavigator = () => {
             return (
               <Feather
                 name="home"
+                size={size}
+                color={focused ? colors.constants.primary : color}
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingsAuthScreen}
+        options={{
+          title: 'Settings',
+          drawerIcon: ({color, size, focused}) => {
+            return (
+              <Feather
+                name="settings"
                 size={size}
                 color={focused ? colors.constants.primary : color}
               />
@@ -110,7 +114,7 @@ const BottomTabNavigator = () => {
       }}>
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={SettingsAuthScreen}
         options={{
           tabBarIcon: ({color}) => {
             return <Feather name="home" size={24} color={color} />;
@@ -142,14 +146,6 @@ const AuthNavigator = () => {
     </Stack.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 const Navigation = () => {
   const checkAuth = useIsAuthenticated();
