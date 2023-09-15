@@ -1,19 +1,16 @@
 interface InputItem {
-  icon: string;
   label: string;
   type: 'input';
   value: string;
 }
 
 interface BooleanItem {
-  icon: string;
   label: string;
   type: 'boolean';
   value: boolean;
 }
 
 interface LinkItem {
-  icon: string;
   label: string;
   type: 'link';
 }

@@ -7,23 +7,23 @@ const useSectionData = () => {
     {
       header: 'Preferences',
       items: [
-        {icon: 'globe', label: 'Language', value: 'English', type: 'input'},
-        {icon: 'moon', label: 'Dark Mode', value: false, type: 'boolean'},
-        {icon: 'wifi', label: 'Use Wi-Fi', value: true, type: 'boolean'},
+        {label: 'Language', value: 'English', type: 'input'},
+        {label: 'Dark Mode', value: false, type: 'boolean'},
+        {label: 'Use Wi-Fi', value: true, type: 'boolean'},
       ],
     },
     {
       header: 'Help',
       items: [
-        {icon: 'flag', label: 'Report Bug', type: 'link'},
-        {icon: 'mail', label: 'Contact Us', type: 'link'},
+        {label: 'Report Bug', type: 'link'},
+        {label: 'Contact Us', type: 'link'},
       ],
     },
     {
       header: 'Content',
       items: [
-        {icon: 'save', label: 'Saved', type: 'link'},
-        {icon: 'download', label: 'Downloads', type: 'link'},
+        {label: 'Saved', type: 'link'},
+        {label: 'Downloads', type: 'link'},
       ],
     },
   ];
