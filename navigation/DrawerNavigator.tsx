@@ -11,10 +11,12 @@ import React from 'react';
 import BottomTabNavigator from './BottomTabNavigator';
 import {auth} from '../constants/firebaseConfig';
 import useCachedUserData from '../hooks/useCachedUserData';
+import {useCurrentTheme} from '../hooks/useCurrentTheme';
 
 function CustomDrawerContent(props: DrawerContentComponentProps) {
-  const {navigation} = props; // Destructure navigation from props
+  const {navigation} = props;
   const {colors} = useTheme();
+  const currTheme = useCurrentTheme();
 
   const uid = auth.currentUser?.uid || '';
 
@@ -39,11 +41,12 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
       <Box mt={5} backgroundColor="transparent">
         <DrawerItem
           label="Settings"
-          icon={({color, size, focused}) => (
+          labelStyle={{color: colors[currTheme].text}}
+          icon={({size}) => (
             <Feather
               name="settings"
               size={size}
-              color={focused ? colors.constants.primary : color}
+              color={colors[currTheme].text}
             />
           )}
           onPress={() => navigateAndCloseDrawer('Settings')}
