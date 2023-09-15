@@ -1,8 +1,8 @@
 import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
 
-import SectionType from '../../components/SectionList/types';
-import {RootProp} from '../../navigation/types';
+import SectionType from '../../../components/SectionList/types';
+import {RootProp} from '../../../navigation/types';
 
 const useSectionData = () => {
   const navigation = useNavigation<RootProp>();
@@ -14,11 +14,9 @@ const useSectionData = () => {
           label: 'Account',
           type: 'link',
           onPress: () => {
-            navigation.goBack();
+            navigation.navigate('Account');
           },
         },
-        {label: 'Dark Mode', value: false, type: 'boolean'},
-        {label: 'Use Wi-Fi', value: true, type: 'boolean'},
       ],
     },
     {
@@ -44,18 +42,12 @@ const useSectionData = () => {
       header: 'Content',
       items: [
         {
-          label: 'Saved',
+          label: 'Remove Cache',
           type: 'link',
           onPress: () => {
-            console.log('Saved');
+            console.log('Remove Cache');
           },
-        },
-        {
-          label: 'Downloads',
-          type: 'link',
-          onPress: () => {
-            console.log('Downloads');
-          },
+          isDangerous: true,
         },
       ],
     },

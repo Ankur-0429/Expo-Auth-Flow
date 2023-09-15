@@ -1,9 +1,18 @@
 import {Feather as FeatherIcon} from '@expo/vector-icons';
-import {Box, Text, Pressable, Card, Switch, Spacer} from 'native-base';
+import {
+  Box,
+  Text,
+  Pressable,
+  Card,
+  Switch,
+  Spacer,
+  useTheme,
+} from 'native-base';
 import React from 'react';
 
 import sectionListStyles from './styles';
 import SectionType from './types';
+import {useCurrentTheme} from '../../hooks/useCurrentTheme';
 
 interface SectionListInterface {
   data: SectionType[];
@@ -14,6 +23,7 @@ export default function SectionList({
   data,
   onStateChanged,
 }: SectionListInterface) {
+  const currTheme = useCurrentTheme();
   return (
     <>
       {data.map(({header, items}) => (
@@ -47,9 +57,17 @@ export default function SectionList({
                       }
                     }}>
                     <Box style={sectionListStyles.row}>
-                      <Text style={sectionListStyles.rowLabel}>
-                        {item.label}
-                      </Text>
+                      {item.isDangerous ? (
+                        <Text
+                          style={sectionListStyles.rowLabel}
+                          color={currTheme + '.error'}>
+                          {item.label}
+                        </Text>
+                      ) : (
+                        <Text style={sectionListStyles.rowLabel}>
+                          {item.label}
+                        </Text>
+                      )}
 
                       <Spacer />
 

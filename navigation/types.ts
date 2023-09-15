@@ -16,6 +16,7 @@ export type DrawerTabParamList = {
 export type RootStackParamList = {
   Root: NavigatorScreenParams<DrawerTabParamList> | undefined;
   Settings: undefined;
+  Account: undefined;
 };
 
 export type AuthStackParamList = {

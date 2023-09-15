@@ -40,7 +40,8 @@ import AddProfileImageScreen from '../screens/Authentication/AddProfileScreen/Ad
 import LoginScreen from '../screens/Authentication/LoginScreen';
 import RegisterScreen from '../screens/Authentication/RegisterScreen';
 import VerifyEmailScreen from '../screens/Authentication/VerifyEmailScreen';
-import SettingsAuthScreen from '../screens/SettingsAuthScreen';
+import SettingsAccountScreen from '../screens/Settings/SettingsAccountScreen';
+import SettingsAuthScreen from '../screens/Settings/SettingsAuthScreen';
 
 function CustomDrawerContent(props: DrawerContentComponentProps) {
   const {navigation} = props; // Destructure navigation from props
@@ -175,14 +176,24 @@ const RootNavigator = () => {
         component={DrawerNavigator}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="Settings"
-        component={SettingsAuthScreen}
-        options={{
-          headerTransparent: true,
-          headerBlurEffect: 'systemThinMaterial',
-        }}
-      />
+      <Stack.Group>
+        <Stack.Screen
+          name="Settings"
+          component={SettingsAuthScreen}
+          options={{
+            headerTransparent: true,
+            headerBlurEffect: 'systemThinMaterial',
+          }}
+        />
+        <Stack.Screen
+          name="Account"
+          component={SettingsAccountScreen}
+          options={{
+            headerTransparent: true,
+            headerBlurEffect: 'systemThinMaterial',
+          }}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };

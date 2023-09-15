@@ -1,13 +1,21 @@
-import {Box, Text, Image, Card, ScrollView} from 'native-base';
+import {
+  Box,
+  Text,
+  Image,
+  Card,
+  ScrollView,
+  Spinner,
+  Pressable,
+} from 'native-base';
 
 import useSectionData from './useSectionData';
-import SectionList from '../../components/SectionList';
-import sectionListStyles from '../../components/SectionList/styles';
-import SectionType from '../../components/SectionList/types';
-import {auth} from '../../constants/firebaseConfig';
-import useCachedUserData from '../../hooks/useCachedUserData';
+import SectionList from '../../../components/SectionList';
+import sectionListStyles from '../../../components/SectionList/styles';
+import SectionType from '../../../components/SectionList/types';
+import {auth} from '../../../constants/firebaseConfig';
+import useCachedUserData from '../../../hooks/useCachedUserData';
 
-const SettingsAuthScreen = () => {
+const SettingsAccountScreen = () => {
   const {user} = useCachedUserData({uid: auth.currentUser?.uid || ''});
   const {sectionData, updateSectionData} = useSectionData();
 
@@ -17,13 +25,6 @@ const SettingsAuthScreen = () => {
   return (
     <ScrollView contentInsetAdjustmentBehavior="automatic">
       <Box style={sectionListStyles.section}>
-        <Box style={sectionListStyles.sectionHeader}>
-          <Text
-            style={sectionListStyles.sectionHeaderText}
-            color="constants.greyText">
-            Account
-          </Text>
-        </Box>
         <Card style={sectionListStyles.profile}>
           <Image
             alt=""
@@ -34,14 +35,23 @@ const SettingsAuthScreen = () => {
           />
 
           <Box>
-            <Text style={sectionListStyles.profileName}>
-              {user?.firstName + ' ' + user?.lastName}
-            </Text>
+            {user ? (
+              <Text style={sectionListStyles.profileName}>
+                {user.firstName + ' ' + user.lastName}
+              </Text>
+            ) : (
+              <Spinner mr="auto" />
+            )}
+
             <Text
               style={sectionListStyles.profileHandle}
               color="constants.greyText">
               {auth.currentUser?.email}
             </Text>
+
+            <Pressable>
+              <Text color="constants.primary">Edit Profile</Text>
+            </Pressable>
           </Box>
         </Card>
       </Box>
@@ -53,4 +63,4 @@ const SettingsAuthScreen = () => {
   );
 };
 
-export default SettingsAuthScreen;
+export default SettingsAccountScreen;
