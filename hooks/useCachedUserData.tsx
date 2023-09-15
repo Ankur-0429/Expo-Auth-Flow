@@ -1,4 +1,3 @@
-import {useIsFocused} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
 
 import getDataWithCaching from '../constants/caching/getDataWithCaching';
@@ -8,7 +7,6 @@ import userType from '../constants/types/userType';
 const useCachedUserData = ({uid}: {uid: string}) => {
   const [user, setUser] = useState(null as userType | null);
   const [isLoading, setIsLoading] = useState(false);
-  const isFocused = useIsFocused();
 
   useEffect(() => {
     const getData = async () => {
@@ -26,10 +24,8 @@ const useCachedUserData = ({uid}: {uid: string}) => {
       setIsLoading(false);
     };
 
-    if (isFocused) {
-      getData();
-    }
-  }, [uid, isFocused]);
+    getData();
+  }, [uid]);
 
   return {
     user,

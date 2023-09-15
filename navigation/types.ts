@@ -15,8 +15,7 @@ export type DrawerTabParamList = {
 
 export type RootStackParamList = {
   Root: NavigatorScreenParams<DrawerTabParamList> | undefined;
-  Camera: undefined;
-  CreateTitle: undefined;
+  Settings: undefined;
 };
 
 export type AuthStackParamList = {

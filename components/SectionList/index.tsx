@@ -1,5 +1,5 @@
 import {Feather as FeatherIcon} from '@expo/vector-icons';
-import {Box, Text, Pressable, Card, Switch} from 'native-base';
+import {Box, Text, Pressable, Card, Switch, Spacer} from 'native-base';
 import React from 'react';
 
 import sectionListStyles from './styles';
@@ -28,6 +28,7 @@ export default function SectionList({data}: SectionListInterface) {
               return (
                 <Box
                   key={index}
+                  borderColor="constants.greyText"
                   style={[
                     sectionListStyles.rowWrapper,
                     index === 0 && {borderTopWidth: 0},
@@ -43,7 +44,7 @@ export default function SectionList({data}: SectionListInterface) {
                         {item.label}
                       </Text>
 
-                      <Box style={sectionListStyles.rowSpacer} />
+                      <Spacer />
 
                       {item.type === 'input' && 'value' in item && (
                         <Text style={sectionListStyles.rowValue}>

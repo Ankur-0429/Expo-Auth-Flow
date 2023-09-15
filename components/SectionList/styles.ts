@@ -92,18 +92,12 @@ const sectionListStyles = StyleSheet.create({
   },
   rowWrapper: {
     paddingLeft: 16,
-    borderTopWidth: 1,
   },
   rowLabel: {
     fontSize: 17,
   },
   rowValue: {
     fontSize: 17,
-  },
-  rowSpacer: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 0,
   },
 });
 

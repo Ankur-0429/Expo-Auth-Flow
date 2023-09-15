@@ -10,40 +10,38 @@ import useCachedUserData from '../../hooks/useCachedUserData';
 const SettingsAuthScreen = () => {
   const {user} = useCachedUserData({uid: auth.currentUser?.uid || ''});
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <ScrollView>
-        <Box style={sectionListStyles.section}>
-          <Box style={sectionListStyles.sectionHeader}>
+    <ScrollView contentInsetAdjustmentBehavior="automatic">
+      <Box style={sectionListStyles.section}>
+        <Box style={sectionListStyles.sectionHeader}>
+          <Text
+            style={sectionListStyles.sectionHeaderText}
+            color="constants.greyText">
+            Account
+          </Text>
+        </Box>
+        <Card style={sectionListStyles.profile}>
+          <Image
+            alt=""
+            source={{
+              uri: user?.profileImageUrl,
+            }}
+            style={sectionListStyles.profileAvatar}
+          />
+
+          <Box>
+            <Text style={sectionListStyles.profileName}>
+              {user?.firstName + ' ' + user?.lastName}
+            </Text>
             <Text
-              style={sectionListStyles.sectionHeaderText}
+              style={sectionListStyles.profileHandle}
               color="constants.greyText">
-              Account
+              {auth.currentUser?.email}
             </Text>
           </Box>
-          <Card style={sectionListStyles.profile}>
-            <Image
-              alt=""
-              source={{
-                uri: user?.profileImageUrl,
-              }}
-              style={sectionListStyles.profileAvatar}
-            />
-
-            <Box>
-              <Text style={sectionListStyles.profileName}>
-                {user?.firstName + ' ' + user?.lastName}
-              </Text>
-              <Text
-                style={sectionListStyles.profileHandle}
-                color="constants.greyText">
-                {auth.currentUser?.email}
-              </Text>
-            </Box>
-          </Card>
-        </Box>
-        <SectionList data={sectionData} />
-      </ScrollView>
-    </SafeAreaView>
+        </Card>
+      </Box>
+      <SectionList data={sectionData} />
+    </ScrollView>
   );
 };
 
