@@ -42,7 +42,9 @@ export default function SectionList({
                   <Pressable
                     isDisabled={item.type === 'boolean'}
                     onPress={() => {
-                      // handle onPress
+                      if (item.type !== 'boolean') {
+                        item.onPress();
+                      }
                     }}>
                     <Box style={sectionListStyles.row}>
                       <Text style={sectionListStyles.rowLabel}>

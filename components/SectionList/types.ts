@@ -2,6 +2,7 @@ interface InputItem {
   label: string;
   type: 'input';
   value: string;
+  onPress: () => void;
 }
 
 interface BooleanItem {
@@ -13,6 +14,7 @@ interface BooleanItem {
 interface LinkItem {
   label: string;
   type: 'link';
+  onPress: () => void;
 }
 
 type SectionItem = InputItem | BooleanItem | LinkItem;
