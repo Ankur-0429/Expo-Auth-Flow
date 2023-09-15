@@ -39,11 +39,14 @@ const Navigation = () => {
   return (
     <NavigationContainer theme={theme}>
       <Stack.Navigator
-        screenOptions={{headerShown: false}}
         initialRouteName={checkAuth.isAuthenticated ? 'Root' : 'Login'}>
         {checkAuth.isAuthenticated ? (
           <Stack.Group>
-            <Stack.Screen name="Root" component={DrawerNavigator} />
+            <Stack.Screen
+              name="Root"
+              component={DrawerNavigator}
+              options={{headerShown: false}}
+            />
             <Stack.Group
               screenOptions={{
                 headerTransparent: true,
@@ -54,7 +57,7 @@ const Navigation = () => {
             </Stack.Group>
           </Stack.Group>
         ) : (
-          <Stack.Group>
+          <Stack.Group screenOptions={{headerShown: false}}>
             <Stack.Screen
               name="Login"
               component={LoginScreen}
