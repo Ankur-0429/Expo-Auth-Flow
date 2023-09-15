@@ -1,3 +1,4 @@
+import {hideAsync} from 'expo-splash-screen';
 import {onAuthStateChanged, onIdTokenChanged} from 'firebase/auth';
 import {doc, getDoc} from 'firebase/firestore';
 import {useEffect, useState} from 'react';
@@ -46,6 +47,10 @@ export default function useIsAuthenticated() {
     } catch {
       setHasProfileData(false);
     }
+
+    new Promise(resolve => setTimeout(resolve, 400)).then(() => {
+      hideAsync();
+    });
   };
 
   return {
