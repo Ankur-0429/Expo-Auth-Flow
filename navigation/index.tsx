@@ -167,54 +167,14 @@ const BottomTabNavigator = () => {
   );
 };
 
-const RootNavigator = () => {
-  const Stack = createNativeStackNavigator<RootStackParamList>();
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Root"
-        component={DrawerNavigator}
-        options={{headerShown: false}}
-      />
-      <Stack.Group>
-        <Stack.Screen
-          name="Settings"
-          component={SettingsAuthScreen}
-          options={{
-            headerTransparent: true,
-            headerBlurEffect: 'systemThinMaterial',
-          }}
-        />
-        <Stack.Screen
-          name="Account"
-          component={SettingsAccountScreen}
-          options={{
-            headerTransparent: true,
-            headerBlurEffect: 'systemThinMaterial',
-          }}
-        />
-      </Stack.Group>
-    </Stack.Navigator>
-  );
-};
-
-const AuthNavigator = () => {
-  const Stack = createNativeStackNavigator<AuthStackParamList>();
-  return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Register" component={RegisterScreen} />
-      <Stack.Screen name="Verify" component={VerifyEmailScreen} />
-      <Stack.Screen name="AddName" component={AddNameScreen} />
-      <Stack.Screen name="AddProfileImage" component={AddProfileImageScreen} />
-    </Stack.Navigator>
-  );
-};
-
 const Navigation = () => {
   const checkAuth = useIsAuthenticated();
   const {colors} = useTheme();
   const currTheme = useCurrentTheme();
+
+  const Stack = createNativeStackNavigator<
+    RootStackParamList & AuthStackParamList
+  >();
 
   const theme = {
     ...DefaultTheme,
@@ -230,7 +190,50 @@ const Navigation = () => {
 
   return (
     <NavigationContainer theme={theme}>
-      {checkAuth.isAuthenticated ? <RootNavigator /> : <AuthNavigator />}
+      <Stack.Navigator
+        screenOptions={{headerShown: false}}
+        initialRouteName={checkAuth.isAuthenticated ? 'Root' : 'Login'}>
+        {checkAuth.isAuthenticated ? (
+          <Stack.Group>
+            <Stack.Screen name="Root" component={DrawerNavigator} />
+            <Stack.Screen
+              name="Settings"
+              component={SettingsAuthScreen}
+              options={{
+                headerTransparent: true,
+                headerBlurEffect: 'systemThinMaterial',
+              }}
+            />
+            <Stack.Screen
+              name="Account"
+              component={SettingsAccountScreen}
+              options={{
+                headerTransparent: true,
+                headerBlurEffect: 'systemThinMaterial',
+              }}
+            />
+          </Stack.Group>
+        ) : (
+          <Stack.Group>
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{
+                animationTypeForReplace: !checkAuth.isAuthenticated
+                  ? 'pop'
+                  : 'push',
+              }}
+            />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Verify" component={VerifyEmailScreen} />
+            <Stack.Screen name="AddName" component={AddNameScreen} />
+            <Stack.Screen
+              name="AddProfileImage"
+              component={AddProfileImageScreen}
+            />
+          </Stack.Group>
+        )}
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };

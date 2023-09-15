@@ -1,13 +1,5 @@
 import {Feather as FeatherIcon} from '@expo/vector-icons';
-import {
-  Box,
-  Text,
-  Pressable,
-  Card,
-  Switch,
-  Spacer,
-  useTheme,
-} from 'native-base';
+import {Box, Text, Pressable, Card, Switch, Spacer} from 'native-base';
 import React from 'react';
 
 import sectionListStyles from './styles';
