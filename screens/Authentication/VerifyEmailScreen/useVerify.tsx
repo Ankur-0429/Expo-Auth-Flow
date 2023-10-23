@@ -26,7 +26,7 @@ export default function useVerify() {
           if (auth.currentUser) {
             auth.currentUser.getIdToken(true);
           }
-          if (auth.currentUser?.emailVerified && isFocused) {
+          if (auth.currentUser?.emailVerified) {
             navigation.navigate('AddName');
           }
         });
@@ -36,7 +36,7 @@ export default function useVerify() {
     return () => {
       clearInterval(unsubscribeSetInterval);
     };
-  }, []);
+  }, [isFocused]);
 
   useEffect(() => {
     if (isFocused) {
