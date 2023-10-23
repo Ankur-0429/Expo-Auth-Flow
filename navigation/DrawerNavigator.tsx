@@ -1,4 +1,4 @@
-import {Feather} from '@expo/vector-icons';
+import {Feather, Ionicons} from '@expo/vector-icons';
 import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
@@ -11,12 +11,14 @@ import React from 'react';
 import BottomTabNavigator from './BottomTabNavigator';
 import {auth} from '../constants/firebaseConfig';
 import useCachedUserData from '../hooks/useCachedUserData';
+import useColorScheme from '../hooks/useColorScheme';
 import {useCurrentTheme} from '../hooks/useCurrentTheme';
 
 function CustomDrawerContent(props: DrawerContentComponentProps) {
   const {navigation} = props;
   const {colors} = useTheme();
   const currTheme = useCurrentTheme();
+  const colorScheme = useColorScheme();
 
   const uid = auth.currentUser?.uid || '';
 
@@ -33,7 +35,21 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
         bg="transparent"
         px={3}
         onPress={() => navigateAndCloseDrawer('ProfileScreen')}>
-        <Avatar size="lg" source={{uri: user?.profileImageUrl}} mb={2} />
+        {user?.profileImageUrl ? (
+          <Avatar
+            boxSize="10"
+            alignItems="center"
+            source={{uri: user.profileImageUrl}}
+            size="lg"
+            mb={2}
+          />
+        ) : (
+          <Ionicons
+            name="person-circle-sharp"
+            size={80}
+            color={colorScheme === 'dark' ? 'white' : 'black'}
+          />
+        )}
         <Text fontSize={18} bold>
           {user?.firstName + ' ' + user?.lastName}
         </Text>

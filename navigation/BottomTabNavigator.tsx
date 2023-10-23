@@ -1,4 +1,4 @@
-import {Feather} from '@expo/vector-icons';
+import {Feather, Ionicons} from '@expo/vector-icons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useNavigation} from '@react-navigation/native';
 import {BlurView} from 'expo-blur';
@@ -9,11 +9,13 @@ import {Platform, StyleSheet} from 'react-native';
 import {RootTabParamList, RootProp} from './types';
 import {auth} from '../constants/firebaseConfig';
 import useCachedUserData from '../hooks/useCachedUserData';
+import useColorScheme from '../hooks/useColorScheme';
 
 const BottomTabNavigator = () => {
   const Tab = createBottomTabNavigator<RootTabParamList>();
   const {user, isLoading} = useCachedUserData({uid: auth.currentUser!.uid});
   const navigation = useNavigation<RootProp>();
+  const colorScheme = useColorScheme();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -29,11 +31,19 @@ const BottomTabNavigator = () => {
                 </Card>
               ) : (
                 <Pressable onPress={navigation.openDrawer}>
-                  <Avatar
-                    bg="constants.primary"
-                    boxSize="10"
-                    source={{uri: user?.profileImageUrl}}
-                  />
+                  {user?.profileImageUrl ? (
+                    <Avatar
+                      boxSize="10"
+                      alignItems="center"
+                      source={{uri: user.profileImageUrl}}
+                    />
+                  ) : (
+                    <Ionicons
+                      name="person-circle-sharp"
+                      size={40}
+                      color={colorScheme === 'dark' ? 'white' : 'black'}
+                    />
+                  )}
                 </Pressable>
               )}
             </Box>

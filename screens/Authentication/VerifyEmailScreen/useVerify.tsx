@@ -21,7 +21,7 @@ export default function useVerify() {
 
   useEffect(() => {
     const unsubscribeSetInterval = setInterval(() => {
-      if (auth.currentUser) {
+      if (auth.currentUser && isFocused) {
         auth.currentUser.reload().then(() => {
           if (auth.currentUser) {
             auth.currentUser.getIdToken(true);

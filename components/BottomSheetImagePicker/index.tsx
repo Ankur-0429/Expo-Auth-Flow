@@ -40,7 +40,13 @@ const BottomSheetImagePicker = ({
         index={0}
         snapPoints={snapPoints}>
         <Box>
-          <Pressable onPress={imagePicker.pickImage} p={3} mx={3}>
+          <Pressable
+            onPress={() => {
+              imagePicker.pickImage();
+              bottomSheetModalRef.current?.close();
+            }}
+            p={3}
+            mx={3}>
             <HStack space={3}>
               <AntDesign
                 name="picture"
@@ -50,7 +56,13 @@ const BottomSheetImagePicker = ({
               <Text fontSize={18}>Choose from library</Text>
             </HStack>
           </Pressable>
-          <Pressable onPress={imagePicker.takePicture} p={3} mx={3}>
+          <Pressable
+            onPress={() => {
+              imagePicker.takePicture();
+              bottomSheetModalRef.current?.close();
+            }}
+            p={3}
+            mx={3}>
             <HStack space={3}>
               <AntDesign
                 name="camerao"
@@ -60,7 +72,13 @@ const BottomSheetImagePicker = ({
               <Text fontSize={18}>Take photo</Text>
             </HStack>
           </Pressable>
-          <Pressable onPress={() => onImageSelected('')} p={3} mx={3}>
+          <Pressable
+            onPress={() => {
+              onImageSelected('');
+              bottomSheetModalRef.current?.close();
+            }}
+            p={3}
+            mx={3}>
             <HStack space={3}>
               <Feather
                 name="trash"

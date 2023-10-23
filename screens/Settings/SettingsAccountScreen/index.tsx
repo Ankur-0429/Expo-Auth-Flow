@@ -1,12 +1,4 @@
-import {
-  Box,
-  Text,
-  Image,
-  Card,
-  ScrollView,
-  Spinner,
-  Pressable,
-} from 'native-base';
+import {Box, Text, Card, ScrollView, Spinner, Pressable} from 'native-base';
 
 import useSectionData from './useSectionData';
 import SectionList from '../../../components/SectionList';
@@ -26,14 +18,6 @@ const SettingsAccountScreen = () => {
     <ScrollView contentInsetAdjustmentBehavior="automatic">
       <Box style={sectionListStyles.section}>
         <Card style={sectionListStyles.profile}>
-          <Image
-            alt=""
-            source={{
-              uri: user?.profileImageUrl,
-            }}
-            style={sectionListStyles.profileAvatar}
-          />
-
           <Box>
             {user ? (
               <Text style={sectionListStyles.profileName}>

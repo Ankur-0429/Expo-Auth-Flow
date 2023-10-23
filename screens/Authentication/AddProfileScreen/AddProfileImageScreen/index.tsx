@@ -59,7 +59,7 @@ const AddProfileImageScreen = ({
               profile.setProfileImageLocalUrl(image);
             }}>
             <HStack alignSelf="center">
-              <Card rounded="full">
+              <Card rounded="full" p={3}>
                 {profile.profileImageLocalUrl ? (
                   <Image
                     source={{uri: profile.profileImageLocalUrl}}
@@ -85,13 +85,14 @@ const AddProfileImageScreen = ({
             borderRadius={15}
             h={12}
             _text={{fontSize: 18}}
+            isDisabled={profile.profileImageLocalUrl === ''}
             isLoading={profile.isLoading}
             onPress={profile.submit_profile}
             color="constants.primary">
             Next
           </Button>
 
-          <Pressable alignSelf="center">
+          <Pressable alignSelf="center" onPress={profile.submit_profile}>
             <Text color="constants.primary">Skip for now</Text>
           </Pressable>
 

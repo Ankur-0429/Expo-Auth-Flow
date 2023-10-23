@@ -47,11 +47,11 @@ export default function useIsAuthenticated() {
     } catch {
       setHasProfileData(false);
     }
-
-    new Promise(resolve => setTimeout(resolve, 400)).then(() => {
-      hideAsync();
-    });
   };
+
+  new Promise(resolve => setTimeout(resolve, 400)).then(() => {
+    hideAsync();
+  });
 
   return {
     isAuthenticated: ifAuth && hasProfileData,
