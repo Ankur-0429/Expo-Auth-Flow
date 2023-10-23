@@ -21,6 +21,9 @@ const auth = initializeAuth(app, {
 
 const firestore = getFirestore(app);
 
-const storage = getStorage(app, 'gs://waypoint-52d28.appspot.com');
+const storage = getStorage(
+  app,
+  'gs://' + process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET,
+);
 
 export {auth, firestore, storage};

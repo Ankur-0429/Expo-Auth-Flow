@@ -92,7 +92,12 @@ const AddProfileImageScreen = ({
             Next
           </Button>
 
-          <Pressable alignSelf="center" onPress={profile.submit_profile}>
+          <Pressable
+            alignSelf="center"
+            onPress={() => {
+              profile.setProfileImageLocalUrl('');
+              profile.submit_profile();
+            }}>
             <Text color="constants.primary">Skip for now</Text>
           </Pressable>
 

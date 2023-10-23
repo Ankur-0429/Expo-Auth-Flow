@@ -37,7 +37,7 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
         onPress={() => navigateAndCloseDrawer('ProfileScreen')}>
         {user?.profileImageUrl ? (
           <Avatar
-            boxSize="10"
+            boxSize="16"
             alignItems="center"
             source={{uri: user.profileImageUrl}}
             size="lg"
