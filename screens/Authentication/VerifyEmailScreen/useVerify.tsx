@@ -26,7 +26,7 @@ export default function useVerify() {
           if (auth.currentUser) {
             auth.currentUser.getIdToken(true);
           }
-          if (auth.currentUser?.emailVerified) {
+          if (auth.currentUser?.emailVerified && isFocused) {
             navigation.navigate('AddName');
           }
         });
