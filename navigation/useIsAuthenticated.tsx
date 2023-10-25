@@ -26,6 +26,7 @@ export default function useIsAuthenticated() {
         setIfAuth(user.emailVerified);
       } else {
         setIfAuth(false);
+        setHasProfileData(false);
       }
     });
 
