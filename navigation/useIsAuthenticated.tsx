@@ -16,6 +16,7 @@ export default function useIsAuthenticated() {
         checkIfProfileDataExists(user.uid);
       } else {
         setIfAuth(false);
+        setHasProfileData(false);
       }
     });
 
